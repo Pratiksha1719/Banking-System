@@ -31,6 +31,9 @@ class BankController extends Controller
     //deposit amount from current balance
     public function depositStore(Account $account , Request $request){
         $accountData = $account->getDataByAccountNum($request->accountNumber);
+        if($request->accountNumber == null || $request->amt == null ){
+            return redirect()->back()->with('error', 'Please enter account number and amount');
+        }
         if(empty($accountData)){
             return redirect()->back()->with('error', 'Account Not Found');
         }
@@ -43,10 +46,16 @@ class BankController extends Controller
     //withdraw amount from current balance
     public function withdrawStore(Account $account , Request $request){
         $accountData = $account->getDataByAccountNum($request->accountNumber);
+        if($request->accountNumber == null || $request->amt == null ){
+            return redirect()->back()->with('error', 'Please enter account number and amount');
+        }
+        if(empty($accountData)){
+            return redirect()->back()->with('error', 'Account Not Found');
+        }
         if($accountData->balance < $request->amt){
             return redirect()->back()->with('error', 'Insufficient balance');
         }
-        $newBal = $request->amt - $accountData->balance ;
+        $newBal = $accountData->balance - $request->amt ;
         $account->saveBalance($newBal, $request->accountNumber);
         return redirect()->route('index');
     }

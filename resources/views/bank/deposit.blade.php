@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-lg-11">
                     <label>Enter Account Number</label>
-                    <input class="form-control accountNumber" placeholder="Enter account number" id="accountNumber" name="accountNumber" type="text">
+                    <input class="form-control accountNumber" placeholder="Enter account number" id="accountNumber" name="accountNumber" type="text" required>
                 </div>
             </div><br>
             <label stylee="color:black">Enter amount for withdraw</label>
@@ -38,7 +38,7 @@
                     <input style="background-color:white" disabled class="rupees form-control" value="₹">
                 </div>
                 <div class="col-lg-9">
-                    <input class="form-control" placeholder ="Enter amount" name="amt" type="number">
+                    <input class="form-control" placeholder ="Enter amount" name="amt" type="number" min ="0" oninput="this.value = Math.abs(this.value)" required> 
                 </div>
             </div>
 
@@ -58,7 +58,6 @@
 <script>
     function formSubmit() {
         document.getElementById("bankForm").submit();
-
     }
 </script>
 
