@@ -15,21 +15,21 @@ class BankController extends Controller
         return view('bank.account',compact('data','rate'));
     }
 
-    public function deposit(Account $account){
+    public function deposit(SavingAccount $account){
         $action='deposit';
         $balance = $account->getAccountData()->balance;
         return view('bank.deposit',compact('action','balance'));
     }
 
     
-    public function withdraw(Account $account){
+    public function withdraw(SavingAccount $account){
         $action='withdraw';
         $balance = $account->getAccountData()->balance;
         return view('bank.deposit',compact('action','balance'));
     }
 
     //deposit amount from current balance
-    public function depositStore(Account $account , Request $request){
+    public function depositStore(SavingAccount $account , Request $request){
         $accountData = $account->getDataByAccountNum($request->accountNumber);
         if($request->accountNumber == null || $request->amt == null ){
             return redirect()->back()->with('error', 'Please enter account number and amount');
@@ -44,7 +44,7 @@ class BankController extends Controller
     }
 
     //withdraw amount from current balance
-    public function withdrawStore(Account $account , Request $request){
+    public function withdrawStore(SavingAccount $account , Request $request){
         $accountData = $account->getDataByAccountNum($request->accountNumber);
         if($request->accountNumber == null || $request->amt == null ){
             return redirect()->back()->with('error', 'Please enter account number and amount');
